@@ -27,38 +27,24 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "Horario")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Horario.findAll", query = "SELECT h FROM Horario h"),
-    @NamedQuery(name = "Horario.findByIdHorario", query = "SELECT h FROM Horario h WHERE h.idHorario = :idHorario"),
-    @NamedQuery(name = "Horario.findByDia", query = "SELECT h FROM Horario h WHERE h.dia = :dia"),
-    @NamedQuery(name = "Horario.findByInicio", query = "SELECT h FROM Horario h WHERE h.inicio = :inicio"),
-    @NamedQuery(name = "Horario.findByFim", query = "SELECT h FROM Horario h WHERE h.fim = :fim")})
+
 public class Horario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idHorario")
+    @GeneratedValue
+    @Column(name = "idHorario", nullable=false)
     private Integer idHorario;
-    @Size(max = 45)
-    @Column(name = "Dia")
+    @Column(name = "Dia", nullable = false, length = 45)
     private String dia;
-    @Size(max = 45)
-    @Column(name = "Inicio")
+    @Column(name = "Inicio", nullable = false, length = 45)
     private String inicio;
-    @Size(max = 45)
-    @Column(name = "Fim")
+    @Column(name = "Fim", nullable = false, length = 45)
     private String fim;
     @JoinColumn(name = "idOferta", referencedColumnName = "idOferta")
     @ManyToOne(optional = false)
     private Oferta idOferta;
 
     public Horario() {
-    }
-
-    public Horario(Integer idHorario) {
-        this.idHorario = idHorario;
     }
 
     public Integer getIdHorario() {
@@ -103,27 +89,23 @@ public class Horario implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idHorario != null ? idHorario.hashCode() : 0);
+        int hash = 3;
+        hash = 11 * hash + (this.idHorario != null ? this.idHorario.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Horario)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Horario other = (Horario) object;
-        if ((this.idHorario == null && other.idHorario != null) || (this.idHorario != null && !this.idHorario.equals(other.idHorario))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Horario other = (Horario) obj;
+        if (this.idHorario != other.idHorario && (this.idHorario == null || !this.idHorario.equals(other.idHorario))) {
             return false;
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "br.com.oferta.model.entities.Horario[ idHorario=" + idHorario + " ]";
-    }
-    
 }
