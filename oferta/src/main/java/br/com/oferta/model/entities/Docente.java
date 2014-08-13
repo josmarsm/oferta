@@ -33,13 +33,13 @@ public class Docente implements Serializable {
     @GeneratedValue
     @Column(name="idDocente", nullable=false)
     private Integer iddocente;
-    @Column (name="Usuario", nullable = false, length = 45 )
+    @Column (name="Usuario", nullable = false, length = 45)
     private String usuario;
-    @Column (name="Senha", nullable = false, length = 45 )
+    @Column (name="Senha", nullable = false, length = 45)
     private String senha;
-    @Column (name="Nome", nullable = false, length = 255 )
+    @Column (name="Nome", nullable = false, length = 255)
     private String nome;
-    @Column (name="Linha", nullable = false, length = 45 )
+    @Column (name="Linha", nullable = false, length = 45)
     private String linha;
 
     public Docente() {
