@@ -5,6 +5,8 @@
     <class>br.com.oferta.model.entities.Oferta</class>
     <class>br.com.oferta.model.entities.Horario</class>
     <class>br.com.oferta.model.entities.Docente_1</class>
+    <class>br.com.oferta.model.entities.Disciplina</class>
+    <class>br.com.oferta.model.entities.Docente</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.132.35.63:3306/oferta"/>

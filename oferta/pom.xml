@@ -137,6 +137,18 @@
             <version>2.5.1</version>
         </dependency>
         <dependency>
+            <groupId>maven2.org.jboss.embedded</groupId>
+            <artifactId>hibernate-all</artifactId>
+            <version>beta3.SP12</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss</groupId>
+            <artifactId>jnp-client</artifactId>
+            <version>5.0.0.Beta4</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>

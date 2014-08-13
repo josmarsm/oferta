@@ -30,21 +30,31 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Oferta")
-
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Oferta.findAll", query = "SELECT o FROM Oferta o"),
+    @NamedQuery(name = "Oferta.findByIdOferta", query = "SELECT o FROM Oferta o WHERE o.idOferta = :idOferta")})
 public class Oferta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name = "idOferta", nullable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idOferta", nullable = false)
     private Integer idOferta;
-    @JoinColumn(name = "idDisciplina", nullable=false)
+    @JoinColumn(name = "idDisciplina", referencedColumnName = "idDisciplina", nullable = false)
     @ManyToOne(optional = false)
     private Disciplina idDisciplina;
-    @JoinColumn(name = "idDocente", nullable=false)
+    @JoinColumn(name = "idDocente", referencedColumnName = "idDocente", nullable = false)
     @ManyToOne(optional = false)
     private Docente idDocente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOferta")
+    private Collection<Horario> horarioCollection;
 
     public Oferta() {
+    }
+
+    public Oferta(Integer idOferta) {
+        this.idOferta = idOferta;
     }
 
     public Integer getIdOferta() {
@@ -71,26 +81,38 @@ public class Oferta implements Serializable {
         this.idDocente = idDocente;
     }
 
+    @XmlTransient
+    public Collection<Horario> getHorarioCollection() {
+        return horarioCollection;
+    }
+
+    public void setHorarioCollection(Collection<Horario> horarioCollection) {
+        this.horarioCollection = horarioCollection;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + (this.idOferta != null ? this.idOferta.hashCode() : 0);
+        int hash = 0;
+        hash += (idOferta != null ? idOferta.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Oferta)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Oferta other = (Oferta) obj;
-        if (this.idOferta != other.idOferta && (this.idOferta == null || !this.idOferta.equals(other.idOferta))) {
+        Oferta other = (Oferta) object;
+        if ((this.idOferta == null && other.idOferta != null) || (this.idOferta != null && !this.idOferta.equals(other.idOferta))) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.com.oferta.model.entities.Oferta[ idOferta=" + idOferta + " ]";
     }
     
 }
